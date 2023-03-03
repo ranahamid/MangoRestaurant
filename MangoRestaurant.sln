@@ -7,6 +7,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{00
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.Web", "Mango.Web\Mango.Web.csproj", "{6538FDF0-C750-4CCC-94F6-7A8DE011C8EE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{E74EEF25-79DD-4465-8824-141B74B91AA6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{6BB43908-409A-460D-A2DD-4C344C7F6E93}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payments", "Payments", "{AC77CC5F-6C0C-40EB-92C6-91EF3BD7B51E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Servics", "Servics", "{0062DDEA-4DC6-44EB-8803-114A1DD0659B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.Services.ProductAPI", "Mango.Services.ProductAPI\Mango.Services.ProductAPI.csproj", "{559390BF-B350-41EE-98BF-783E62CF43A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,12 +27,17 @@ Global
 		{6538FDF0-C750-4CCC-94F6-7A8DE011C8EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6538FDF0-C750-4CCC-94F6-7A8DE011C8EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6538FDF0-C750-4CCC-94F6-7A8DE011C8EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{559390BF-B350-41EE-98BF-783E62CF43A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{559390BF-B350-41EE-98BF-783E62CF43A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{559390BF-B350-41EE-98BF-783E62CF43A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{559390BF-B350-41EE-98BF-783E62CF43A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6538FDF0-C750-4CCC-94F6-7A8DE011C8EE} = {00D66D3C-E649-469C-85F7-B391AEF76132}
+		{559390BF-B350-41EE-98BF-783E62CF43A5} = {0062DDEA-4DC6-44EB-8803-114A1DD0659B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {506AC787-01F4-4CC5-ADF9-A1155B0A72E3}

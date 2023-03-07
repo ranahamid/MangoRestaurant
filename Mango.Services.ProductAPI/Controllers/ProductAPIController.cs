@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Mango.Services.ProductAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/ProductAPI")]
     [ApiController]
     public class ProductAPIController : ControllerBase
     {

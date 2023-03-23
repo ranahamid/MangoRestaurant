@@ -8,8 +8,6 @@ namespace Mango.Web.Services
 {
     public class BaseService : IBaseService
     {
-
-
         public ResponseDto ResponseModel { get; set; }
         public IHttpClientFactory httpClient { get; set; }
 

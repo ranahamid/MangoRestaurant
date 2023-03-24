@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEnd", "FrontEnd", "{00D66D3C-E649-469C-85F7-B391AEF76132}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.Web", "Mango.Web\Mango.Web.csproj", "{6538FDF0-C750-4CCC-94F6-7A8DE011C8EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.Web", "Mango.Web\Mango.Web.csproj", "{6538FDF0-C750-4CCC-94F6-7A8DE011C8EE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{E74EEF25-79DD-4465-8824-141B74B91AA6}"
 EndProject
@@ -15,7 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payments", "Payments", "{AC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Servics", "Servics", "{0062DDEA-4DC6-44EB-8803-114A1DD0659B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.Services.ProductAPI", "Mango.Services.ProductAPI\Mango.Services.ProductAPI.csproj", "{559390BF-B350-41EE-98BF-783E62CF43A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.Services.ProductAPI", "Mango.Services.ProductAPI\Mango.Services.ProductAPI.csproj", "{559390BF-B350-41EE-98BF-783E62CF43A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.Services.Identity", "Mango.Services.Identity\Mango.Services.Identity.csproj", "{3C16ECEA-7087-4D17-AD0E-12033FA8B32D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,10 @@ Global
 		{559390BF-B350-41EE-98BF-783E62CF43A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{559390BF-B350-41EE-98BF-783E62CF43A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{559390BF-B350-41EE-98BF-783E62CF43A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C16ECEA-7087-4D17-AD0E-12033FA8B32D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C16ECEA-7087-4D17-AD0E-12033FA8B32D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C16ECEA-7087-4D17-AD0E-12033FA8B32D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C16ECEA-7087-4D17-AD0E-12033FA8B32D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -38,6 +44,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{6538FDF0-C750-4CCC-94F6-7A8DE011C8EE} = {00D66D3C-E649-469C-85F7-B391AEF76132}
 		{559390BF-B350-41EE-98BF-783E62CF43A5} = {0062DDEA-4DC6-44EB-8803-114A1DD0659B}
+		{3C16ECEA-7087-4D17-AD0E-12033FA8B32D} = {0062DDEA-4DC6-44EB-8803-114A1DD0659B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {506AC787-01F4-4CC5-ADF9-A1155B0A72E3}

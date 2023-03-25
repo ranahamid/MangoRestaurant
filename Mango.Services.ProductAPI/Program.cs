@@ -3,8 +3,10 @@ using Mango.Services.ProductAPI.DbContexts;
 using Mango.Services.ProductAPI.Mapping;
 using Mango.Services.ProductAPI.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,9 +30,19 @@ builder.Services.AddControllers();
 builder.Services.AddAuthentication("Bearer").AddJwtBearer("Bearer", x =>
 {
     x.Authority= "https://localhost:44357/";
+    x.Audience = "bankOfDotNetApi";
+    x.RequireHttpsMetadata = false;
     x.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateAudience = true,
+        ValidateAudience = false,
+        ValidateIssuer = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+
+        //ValidIssuer = Configuration["Jwt:Issuer"],
+        //ValidAudience = Configuration["Jwt:Audience"],
+        //IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"])),
+        ClockSkew = TimeSpan.Zero
     };
 });
 builder.Services.AddAuthorization(x =>
@@ -84,7 +96,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

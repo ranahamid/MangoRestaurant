@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http.Headers;
 using System.Text;
 using Mango.Web.Models;
 using Mango.Web.Services.IServices;
@@ -26,7 +27,10 @@ namespace Mango.Web.Services
                 clinet.DefaultRequestHeaders.Clear();
                 
                 message.Content = new StringContent(JsonConvert.SerializeObject(apiRequest.Data), encoding: Encoding.UTF8, "application/json");
-
+                if (!string.IsNullOrEmpty(apiRequest.AccessToken))
+                {
+                    clinet.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiRequest.AccessToken);
+                }
                 switch (apiRequest.ApiType)
                 {
                     case SD.ApiType.POST:

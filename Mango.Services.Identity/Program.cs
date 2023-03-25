@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Identity;
 using Mango.Services.Identity;
 using Mango.Services.Identity.Initializer;
 using Microsoft.Extensions.DependencyInjection;
+using Duende.IdentityServer.Services;
+using Mango.Services.Identity.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,7 +35,7 @@ var identityBuilder = builder.Services.AddIdentityServer
     .AddAspNetIdentity<ApplicationUser>();
 
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
-
+builder.Services.AddScoped<IProfileService, ProfileService>();
 identityBuilder.AddDeveloperSigningCredential();
 
 

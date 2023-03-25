@@ -12,13 +12,11 @@ namespace Mango.Web.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-        }
-
+        } 
         public IActionResult Index()
         {
             return View();
-        }
-
+        } 
         public IActionResult Privacy()
         {
             return View();
@@ -36,7 +34,7 @@ namespace Mango.Web.Controllers
 		}
 		public IActionResult Logout()
 		{
-			return SignOut("Cookies","iodc");
+			return SignOut("Cookies", "oidc");
 		}
 	}
 }

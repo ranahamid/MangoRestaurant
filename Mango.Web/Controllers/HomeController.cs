@@ -12,14 +12,17 @@ namespace Mango.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IProductService _productService;
-
-        public HomeController(ILogger<HomeController> logger, IProductService productService)
+        private readonly ICartService _cartService;
+        public HomeController(ILogger<HomeController> logger, IProductService productService, ICartService cartService)
         {
             _logger = logger;
             _productService = productService;
+            _cartService = cartService;
         } 
         public async Task <IActionResult> Index()
         {
+            //var userId = User.Claims.Where(x => x.Type == "sub")?.FirstOrDefault()?.Value;
+
             var accessToken = "";// await HttpContext.GetTokenAsync("access_token");
             var list = new List<ProductDto>();
             var response = await _productService.GetAllProductAsync<ResponseDto>(accessToken);
@@ -48,6 +51,53 @@ namespace Mango.Web.Controllers
             }
             return NotFound();
         }
+
+        [HttpPost]
+        [ActionName("ProductDetails")]
+        [Authorize]
+        public async Task<IActionResult> DetailsPost(ProductDto productDto)
+        {
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            //var userId = User.Claims.Where(x => x.Type .Contains("nameidentifier"))?.FirstOrDefault()?.Value;
+            var userId = User.Claims.Where(x => x.Type=="sub")?.FirstOrDefault()?.Value;
+            if (string.IsNullOrEmpty(userId))
+            {
+                userId = User.Claims.Where(x => x.Type.Contains("nameidentifier"))?.FirstOrDefault()?.Value;
+            }
+            CartDto cartDto = new CartDto
+            {
+                CartHeader = new CartHeaderDto
+                {
+                    UserId = userId,
+                },  
+            };
+            CartDetailsDto cartDetails = new CartDetailsDto
+            {
+                Count = productDto.Count,
+                ProductId = productDto.ProductId,
+                CartHeader= new CartHeaderDto
+                {
+                    UserId = userId,
+                } 
+            };
+            var response = await _productService.GetAllProductByIdAsync<ResponseDto>(productDto.ProductId, accessToken);
+            if(response!=null && response.IsSuccess)
+            {
+                cartDetails.Product = JsonConvert.DeserializeObject<ProductDto>(Convert.ToString(response.Result));
+            }
+            List<CartDetailsDto> cartDetailsList = new List<CartDetailsDto>();
+            cartDetailsList.Add(cartDetails);
+
+            cartDto.CartDetails = cartDetailsList;
+            var addToCartResponse = await _cartService.AddToCartAsync<ResponseDto>(cartDto, accessToken);
+            if (addToCartResponse != null && addToCartResponse.IsSuccess)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View(productDto);
+        }
+
+
         public IActionResult Privacy()
         {
             return View();

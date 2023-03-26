@@ -5,22 +5,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Mango.Services.ShoppingCartAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/CartAPI")]
     [ApiController]
-    public class CartController : ControllerBase
+    public class CartAPIController : ControllerBase
     {
         protected ResponseDto _response;
         private ICartReporsitory _cartReporsitory;
 
-        public CartController(ICartReporsitory cartReporsitory)
+        public CartAPIController(ICartReporsitory cartReporsitory)
         {
             _cartReporsitory = cartReporsitory;
             this._response = new ResponseDto();
         }
         //[Authorize]
         [HttpGet]
-        [Route("{userId}")]
-        // [HttpGet("GetCart/{userId}")]
+        [Route("{userId}")] 
         public async Task<object> GetCart(string userId)
         {
             try
@@ -37,8 +36,8 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
             return _response;
         }
 
-        [HttpPost("AddCart")]
-     
+        [HttpPost]
+        [Route("AddCart")]
         public async Task<object> AddCart(CartDto cartDto)
         {
             try
@@ -55,7 +54,8 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
             return _response;
         }
 
-        [HttpPost("UpdateCart")]
+        [HttpPost]
+        [Route("UpdateCart")]
         public async Task<object> UpdateCart(CartDto cartDto)
         {
             try
@@ -73,7 +73,7 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
         }
 
         [HttpPost("RemoveCart")]
-        [Route("{cartId}")]
+     //   [Route("{cartId}")]
         public async Task<object> RemoveCart([FromBody] int cartId)
         {
             try
@@ -90,8 +90,8 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
             return _response;
         }
 
-        [HttpPost("ClearCart")]
-        [Route("{userId}")]
+        [HttpPost("ClearCart/{userId}")]
+       // [Route("{userId}")]
         public async Task<object> ClearCart([FromBody] string userId)
         {
             try

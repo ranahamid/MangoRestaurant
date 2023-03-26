@@ -30,7 +30,7 @@ builder.Services.AddControllers();
 builder.Services.AddAuthentication("Bearer").AddJwtBearer("Bearer", x =>
 {
     x.Authority= "https://localhost:44357/";
-    x.Audience = "bankOfDotNetApi";
+    x.Audience = "ProductAPI";
     x.RequireHttpsMetadata = false;
     x.TokenValidationParameters = new TokenValidationParameters
     {

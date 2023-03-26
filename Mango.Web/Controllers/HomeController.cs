@@ -37,7 +37,7 @@ namespace Mango.Web.Controllers
         {
             var accessToken =   await HttpContext.GetTokenAsync("access_token");
             var response = await _productService.GetAllProductByIdAsync<ResponseDto>(productId, accessToken);
-            if (response.IsSuccess)
+            if (response!=null && response.IsSuccess)
             {
                 var result = Convert.ToString(response.Result);
                 if (result != null)

@@ -19,7 +19,7 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
         }
         //[Authorize]
         [HttpGet]
-        [Route("{userId}")] 
+        [Route("GetCart/{userId}")] 
         public async Task<object> GetCart(string userId)
         {
             try

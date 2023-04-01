@@ -90,7 +90,7 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
             return _response;
         }
 
-        [HttpPost("ClearCart/{userId}")]
+        [HttpPost("ClearCart")]
        // [Route("{userId}")]
         public async Task<object> ClearCart([FromBody] string userId)
         {
@@ -125,7 +125,7 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
 
             return _response;
         }
-        [HttpPost("RemoveCoupon/{userId}")]
+        [HttpPost("RemoveCoupon")]
         public async Task<object> RemoveCoupon([FromBody] string userId)
         {
             try

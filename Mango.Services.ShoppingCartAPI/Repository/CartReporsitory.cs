@@ -17,6 +17,25 @@ namespace Mango.Services.ShoppingCartAPI.Repository
             _db = db;
             _mapper = mapper;
         }
+
+        #region coupon
+        public async Task<bool> ApplyCoupon(string userId, string couponCode)
+        {
+            CartHeader cartHeaderInDb = await _db.CartHeaders.FirstOrDefaultAsync(x => x.UserId == userId);
+            cartHeaderInDb.CouponCode = couponCode;
+            _db.CartHeaders.Update(cartHeaderInDb);
+            await _db.SaveChangesAsync();
+            return true;
+        }
+        public async Task<bool> RemoveCoupon(string userId)
+        {
+            CartHeader cartHeaderInDb = await _db.CartHeaders.FirstOrDefaultAsync(x => x.UserId == userId);
+            cartHeaderInDb.CouponCode = string.Empty;
+            _db.CartHeaders.Update(cartHeaderInDb);
+            await _db.SaveChangesAsync();
+            return true;
+        }
+        #endregion
         public async Task<bool> ClearCart(string userId)
         {
             CartHeader cartHeaderInDb = await _db.CartHeaders.FirstOrDefaultAsync(x => x.UserId == userId);
@@ -34,9 +53,7 @@ namespace Mango.Services.ShoppingCartAPI.Repository
         {
             Cart cart = _mapper.Map<Cart>(cartDto);
             try
-            {
-
-
+            { 
                 //check if product exists in database, if not create it!
                 var prodInDb = await _db.Products
                     .FirstOrDefaultAsync(u => u.ProductId == cartDto.CartDetails.FirstOrDefault()
@@ -112,6 +129,8 @@ namespace Mango.Services.ShoppingCartAPI.Repository
 
             return _mapper.Map<CartDto>(cart);
         }
+
+     
 
         public async Task<bool> RemoveFromCart(int cartDetailsId)
         {

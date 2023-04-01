@@ -1,7 +1,8 @@
 using AutoMapper;
-using Mango.Services.ShoppingCartAPI.DbContexts;
-using Mango.Services.ShoppingCartAPI.Mapping;
-using Mango.Services.ShoppingCartAPI.Repository;
+using Mango.Services.CouponAPI.DbContexts;
+using Mango.Services.CouponAPI.Mapping;
+//using Mango.Services.CouponAPI.Repository;
+ 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -9,26 +10,24 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ShoppingCartContext") ??
-                         throw new InvalidOperationException("Connection string 'ShoppingCartContext' not found.")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CouponContext") ??
+                         throw new InvalidOperationException("Connection string 'CouponContext' not found.")));
 
 #region mapper
 IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddScoped<ICartReporsitory, CartReporsitory>();
+//builder.Services.AddScoped<ICartReporsitory, CartReporsitory>();
 
 #endregion
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 builder.Services.AddAuthentication("Bearer").AddJwtBearer("Bearer", x =>
 {
     x.Authority = "https://localhost:44357/";
-    x.Audience = "ShoppingCartAPI";
+    x.Audience = "CouponAPI";
     x.RequireHttpsMetadata = false;
     x.TokenValidationParameters = new TokenValidationParameters
     {
@@ -55,7 +54,7 @@ builder.Services.AddAuthorization(x =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mango.Services.ShoppingCartAPI", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mango.Services.CouponAPI", Version = "v1" });
     c.EnableAnnotations();
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {

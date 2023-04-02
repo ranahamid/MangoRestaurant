@@ -49,6 +49,7 @@ namespace Mango.Web.Services
                         break;
                 }
 
+                
                 HttpResponseMessage apiResponse   = await clinet.SendAsync(message);
                 var apiContent = await apiResponse.Content.ReadAsStringAsync();
                 var apiResponseDto = JsonConvert.DeserializeObject<T>(apiContent );

@@ -14,4 +14,16 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.27.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="F:\AData\Project\MangoRestaurant\Mango.Web\Models\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Models\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="F:\AData\Project\MangoRestaurant\Mango.Web\Models\.editorconfig" />
+  </ItemGroup>
+
 </Project>

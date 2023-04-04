@@ -7,23 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bootstrap.v3.Datetimepicker.CSS" Version="4.17.49" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.15" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.12" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.27.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EditorConfigFiles Remove="F:\AData\Project\MangoRestaurant\Mango.Web\Models\.editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Models\.editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EditorConfigFiles Remove="F:\AData\Project\MangoRestaurant\Mango.Web\Models\.editorconfig" />
   </ItemGroup>
 
 </Project>

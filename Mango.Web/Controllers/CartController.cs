@@ -26,6 +26,11 @@ namespace Mango.Web.Controllers
             var model= await LoadCartDtoBasedOnLoggedInUser();
             return View(model);
         }
+        public async Task<IActionResult> Checkout()
+        {
+            var model = await LoadCartDtoBasedOnLoggedInUser();
+            return View(model);
+        }
         public async Task<IActionResult> Remove(int cartDetailsId)
         {
             var userId = User.Claims.Where(x => x.Type == "sub")?.FirstOrDefault()?.Value;

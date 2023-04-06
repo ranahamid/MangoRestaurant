@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Mango.Services.ShoppingCartAPI.Messages;
 using Mango.Services.ShoppingCartAPI.Models;
 using Mango.Services.ShoppingCartAPI.Models.dtos;
 
@@ -14,6 +15,7 @@ namespace Mango.Services.ShoppingCartAPI.Mapping
                 x.CreateMap<CartDetailsDto, CartDetails>().ReverseMap();
                 x.CreateMap<CartHeaderDto, CartHeader>().ReverseMap();
                 x.CreateMap<CartDto, Cart>().ReverseMap();
+                x.CreateMap<CheckoutHeader, CheckoutHeaderDto>().ReverseMap();
             });
             return mappingConfig;
         }

@@ -23,10 +23,15 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 //builder.Services.AddScoped<ICouponRepository, CouponRepository>();
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-//builder.Services.AddTransient<IAzureServiceBusConsumer, AzureServiceBusConsumer>();
+//builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
 
+var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+optionBuilder.UseSqlServer(builder.Configuration.GetConnectionString("OrderContext"));
+builder.Services.AddSingleton(new OrderRepository(optionBuilder.Options, mapper));
 
+builder.Services.AddSingleton<IAzureServiceBusConsumer, AzureServiceBusConsumer>();
+
+builder.Services.AddControllers();
 
 #endregion
 builder.Services.AddAuthentication("Bearer").AddJwtBearer("Bearer", x =>

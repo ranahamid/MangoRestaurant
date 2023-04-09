@@ -15,12 +15,12 @@ namespace Mango.Services.OrderAPI.Messaging
         private readonly string subscriptionNameCheckout;
         private readonly string checkoutMessageTopic;
 
-        private readonly IOrderRepository _orderRepository;
+        private readonly OrderRepository _orderRepository;
         private IMapper _mapper;
         private readonly IConfiguration _configuration;
 
         private ServiceBusProcessor checkoutProcessor;
-        public AzureServiceBusConsumer(IOrderRepository orderRepository, IMapper mapper, IConfiguration configuration)
+        public AzureServiceBusConsumer(OrderRepository orderRepository, IMapper mapper, IConfiguration configuration)
         {
             _orderRepository = orderRepository;
             _mapper = mapper;

@@ -21,9 +21,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
-builder.Services.AddSingleton<IAzureServiceBusConsumer, AzureServiceBusConsumer>();
+//builder.Services.AddScoped<ICouponRepository, CouponRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+//builder.Services.AddTransient<IAzureServiceBusConsumer, AzureServiceBusConsumer>();
 
 
 
@@ -101,7 +102,13 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+
+
 app.MapControllers();
-//Extension
+
+//Extension 
 app.UseAzureServiceBusConsumer();
+
+
 app.Run();
+ 

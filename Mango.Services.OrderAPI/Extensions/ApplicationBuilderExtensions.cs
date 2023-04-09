@@ -5,9 +5,9 @@ using System.Reflection.Metadata;
 namespace Mango.Services.OrderAPI.Extensions
 {
     public static class ApplicationBuilderExtensions
-    { 
+    {
         public static IAzureServiceBusConsumer ServiceBusConsumer { get; set; }
-        public static IApplicationBuilder UseAzureServiceBusConsumer ( this IApplicationBuilder app)
+        public static IApplicationBuilder UseAzureServiceBusConsumer(this IApplicationBuilder app)
         {
             ServiceBusConsumer = app.ApplicationServices.GetService<IAzureServiceBusConsumer>();
             var hostApplicationLife = app.ApplicationServices.GetService<IHostApplicationLifetime>();
@@ -15,7 +15,7 @@ namespace Mango.Services.OrderAPI.Extensions
             hostApplicationLife.ApplicationStarted.Register(OnStart);
             hostApplicationLife.ApplicationStopped.Register(OnStop);
 
-            return app; 
+            return app;
         }
         public static void OnStart()
         {

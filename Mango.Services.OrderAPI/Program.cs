@@ -105,8 +105,7 @@ app.UseAuthorization();
 
 
 app.MapControllers();
-
-//Extension 
+ 
 app.UseAzureServiceBusConsumer();
 
 

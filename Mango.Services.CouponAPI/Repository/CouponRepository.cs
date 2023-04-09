@@ -8,8 +8,7 @@ namespace Mango.Services.CouponAPI.Repository
     public class CouponRepository: ICouponRepository
     {
         private readonly ApplicationDbContext _db;
-        private IMapper _mapper;
-
+        private IMapper _mapper; 
         public CouponRepository(ApplicationDbContext db, IMapper mapper)
         {
             _db = db;

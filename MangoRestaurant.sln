@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.Services.ShoppingCart
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.Services.CouponAPI", "Mango.Services.CouponAPI\Mango.Services.CouponAPI.csproj", "{03AC74F8-F491-4DF7-A771-32699823BAD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.MessageBus", "Mango.MessageBus\Mango.MessageBus.csproj", "{BD2BB565-A2F7-49BC-8559-CD60CFB01699}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mango.MessageBus", "Mango.MessageBus\Mango.MessageBus.csproj", "{BD2BB565-A2F7-49BC-8559-CD60CFB01699}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mango.Services.OrderAPI", "Mango.Services.OrderAPI\Mango.Services.OrderAPI.csproj", "{5B0893F2-8273-4DAD-8DBE-5C71F07DCDEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{BD2BB565-A2F7-49BC-8559-CD60CFB01699}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD2BB565-A2F7-49BC-8559-CD60CFB01699}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD2BB565-A2F7-49BC-8559-CD60CFB01699}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B0893F2-8273-4DAD-8DBE-5C71F07DCDEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B0893F2-8273-4DAD-8DBE-5C71F07DCDEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B0893F2-8273-4DAD-8DBE-5C71F07DCDEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B0893F2-8273-4DAD-8DBE-5C71F07DCDEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +72,7 @@ Global
 		{9B802FE5-BF4C-41FC-B21A-E88A4F711BF4} = {0062DDEA-4DC6-44EB-8803-114A1DD0659B}
 		{03AC74F8-F491-4DF7-A771-32699823BAD9} = {0062DDEA-4DC6-44EB-8803-114A1DD0659B}
 		{BD2BB565-A2F7-49BC-8559-CD60CFB01699} = {6BB43908-409A-460D-A2DD-4C344C7F6E93}
+		{5B0893F2-8273-4DAD-8DBE-5C71F07DCDEC} = {0062DDEA-4DC6-44EB-8803-114A1DD0659B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {506AC787-01F4-4CC5-ADF9-A1155B0A72E3}

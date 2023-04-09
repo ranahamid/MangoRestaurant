@@ -4,6 +4,7 @@ using Mango.Services.ShoppingCartAPI.Models.dtos;
 using Mango.Services.ShoppingCartAPI.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Mango.Services.ShoppingCartAPI.Controllers
 {
@@ -14,11 +15,22 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
         protected ResponseDto _response;
         private ICartReporsitory _cartRepository;
         private readonly IMessageBus _messageBus;
-        public CartAPIController(ICartReporsitory cartReporsitory, IMessageBus messageBus)
+
+        private readonly string serviceBusConnectionString;
+        private readonly string subscriptionName;
+        private readonly string checkoutMessageTopic;
+        private readonly IConfiguration _configuration;
+        public CartAPIController(ICartReporsitory cartReporsitory, IMessageBus messageBus, IConfiguration configuration)
         {
             _cartRepository = cartReporsitory;
             _messageBus = messageBus;
             this._response = new ResponseDto();
+
+            _configuration = configuration;
+
+            serviceBusConnectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
+            subscriptionName = _configuration.GetValue<string>("subscriptionNameCheckout");
+            checkoutMessageTopic = _configuration.GetValue<string>("CheckoutMessageTopic");
         }
         //[Authorize]
         [HttpGet]
@@ -104,7 +116,7 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
                 }
                 checkoutHeader.CartDetails = cartDto.CartDetails;
                 //logic to add message to process order.
-                await _messageBus.PublishMessage(checkoutHeader, "checkoutmessagetopic");
+                await _messageBus.PublishMessage(checkoutHeader, checkoutMessageTopic/* "checkoutmessagetopic"*/);
             }
             catch (Exception ex)
             {

@@ -22,9 +22,6 @@ IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-//builder.Services.AddScoped<ICouponRepository, CouponRepository>();
-//builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
-
 var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
 optionBuilder.UseSqlServer(builder.Configuration.GetConnectionString("OrderContext"));
 builder.Services.AddSingleton(new OrderRepository(optionBuilder.Options, mapper));

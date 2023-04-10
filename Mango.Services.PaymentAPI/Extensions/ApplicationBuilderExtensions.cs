@@ -1,4 +1,5 @@
-﻿using Mango.Services.OrderAPI.Messaging;
+﻿
+using Mango.Services.PaymentAPI.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection.Metadata;
 

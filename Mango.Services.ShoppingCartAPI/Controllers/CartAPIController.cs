@@ -20,13 +20,16 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
         private readonly string subscriptionName;
         private readonly string checkoutMessageTopic;
         private readonly IConfiguration _configuration;
-        public CartAPIController(ICartReporsitory cartReporsitory, IMessageBus messageBus, IConfiguration configuration)
+
+        private readonly ICouponReposity _couponReposity;
+        public CartAPIController(ICartReporsitory cartReporsitory, IMessageBus messageBus, IConfiguration configuration, ICouponReposity couponReposity)
         {
             _cartRepository = cartReporsitory;
             _messageBus = messageBus;
             this._response = new ResponseDto();
 
             _configuration = configuration;
+            _couponReposity = couponReposity;
 
             serviceBusConnectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
             subscriptionName = _configuration.GetValue<string>("subscriptionNameCheckout");
@@ -113,6 +116,19 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
                 if (cartDto == null)
                 {
                     return BadRequest();
+                }
+                if (!string.IsNullOrEmpty(checkoutHeader.CouponCode))
+                {
+                    var coupon= await _couponReposity.GetCoupon(checkoutHeader.CouponCode);
+                    if (checkoutHeader.DiscountTotal != coupon.DiscountAmount)
+                    {
+                        //checkoutHeader.OrderTotal = checkoutHeader.OrderTotal + checkoutHeader.DiscountTotal - coupon.DiscountAmount;
+                        //checkoutHeader.DiscountTotal = coupon.DiscountAmount;
+                        _response.IsSuccess = false;
+                        _response.ErrorMessages = new List<string>() {"Coupon price has changed, please confirm." };
+                        _response.DisplayMessage = "Coupon price has changed, please confirm.";
+                        return _response;
+                    }
                 }
                 checkoutHeader.CartDetails = cartDto.CartDetails;
                 //logic to add message to process order.

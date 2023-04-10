@@ -4,6 +4,7 @@ using Mango.Services.ShoppingCartAPI.DbContexts;
 using Mango.Services.ShoppingCartAPI.Mapping;
 using Mango.Services.ShoppingCartAPI.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -22,9 +23,13 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<ICartReporsitory, CartReporsitory>();
 
 builder.Services.AddScoped<IMessageBus, AzureServiceBusMessageBus>();
+builder.Services.AddScoped<ICouponReposity, CouponReposity>();
+
 #endregion
 
 builder.Services.AddControllers();
+builder.Services.AddHttpClient<ICouponReposity, CouponReposity>(x=> x.BaseAddress= new Uri(builder.Configuration["ServiceUrls:CouponAPI"]));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 builder.Services.AddAuthentication("Bearer").AddJwtBearer("Bearer", x =>

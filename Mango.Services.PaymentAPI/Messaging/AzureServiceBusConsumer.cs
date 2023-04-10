@@ -20,7 +20,10 @@ namespace Mango.Services.PaymentAPI.Messaging
 
         private readonly string subscriptionNameOrder;
         private readonly string orderPaymentProcessTopic;
-         
+
+        private readonly string subscriptionNameOrderUpdate;
+        private readonly string orderUpdatePaymentProcessTopic;
+
         private IMapper _mapper;
         private readonly IConfiguration _configuration;
 
@@ -43,7 +46,10 @@ namespace Mango.Services.PaymentAPI.Messaging
 
             subscriptionNameOrder = _configuration.GetValue<string>("OrderPaymentProcessSubscription");
             orderPaymentProcessTopic = _configuration.GetValue<string>("OrderPaymentProcessTopic");
-             
+
+
+            subscriptionNameOrderUpdate = _configuration.GetValue<string>("OrderUpdatePaymentProcessSubscription");
+            orderUpdatePaymentProcessTopic = _configuration.GetValue<string>("OrderUpdatePaymentProcessTopic");
 
             var client = new ServiceBusClient(serviceBusConnectionString);
             orderPaymentProcessor = client.CreateProcessor(orderPaymentProcessTopic, subscriptionNameOrder);
@@ -72,7 +78,7 @@ namespace Mango.Services.PaymentAPI.Messaging
             PaymentRequestMessage paymentRequest = JsonConvert.DeserializeObject<PaymentRequestMessage>(body);
             var result = _processPayment.PaymentProcessor();
 
-            UpdatePaymentResultMessage updateResult = new UpdatePaymentResultMessage
+            UpdatePaymentResultMessage updatePaymentResultMessage= new UpdatePaymentResultMessage
             {
                 Status = result,
                 OrderId = paymentRequest.OrderId,
@@ -82,7 +88,7 @@ namespace Mango.Services.PaymentAPI.Messaging
 
             try
             {
-                await _messageBus.PublishMessage(paymentRequest, orderPaymentProcessTopic);
+                await _messageBus.PublishMessage(updatePaymentResultMessage, orderUpdatePaymentProcessTopic);
                 await args.CompleteMessageAsync(args.Message);
             }
             catch(Exception ex)

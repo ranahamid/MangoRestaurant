@@ -1,5 +1,7 @@
+using AutoMapper;
 using Mango.MessageBus;
 using Mango.Services.PaymentAPI.Extensions;
+using Mango.Services.PaymentAPI.Mapping;
 using Mango.Services.PaymentAPI.Messaging;
 using PaymentProcessor;
 
@@ -7,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+builder.Services.AddSingleton(mapper);
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddSingleton<IProcessPayment, ProcessPayment>();
 builder.Services.AddSingleton<IAzureServiceBusConsumer, AzureServiceBusConsumer>();

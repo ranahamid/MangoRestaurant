@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PaymentProcessor
 {
-    internal class ProcessPayment : IProcessPayment
+    public class ProcessPayment : IProcessPayment
     {
         public bool PaymentProcessor()
         {

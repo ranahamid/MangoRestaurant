@@ -35,7 +35,7 @@ namespace Mango.Services.OrderAPI.Messaging
             subscriptionNameCheckout = _configuration.GetValue<string>("subscriptionNameCheckout");
             checkoutMessageTopic = _configuration.GetValue<string>("CheckoutMessageTopic");
 
-            subscriptionNameOrder = _configuration.GetValue<string>("subscriptionNameOrder");
+            subscriptionNameOrder = _configuration.GetValue<string>("OrderPaymentProcessSubscription");
             orderPaymentProcessTopic = _configuration.GetValue<string>("OrderPaymentProcessTopic");
              
 

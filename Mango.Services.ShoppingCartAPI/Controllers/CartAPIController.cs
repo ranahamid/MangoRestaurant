@@ -133,6 +133,7 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
                 checkoutHeader.CartDetails = cartDto.CartDetails;
                 //logic to add message to process order.
                 await _messageBus.PublishMessage(checkoutHeader, checkoutMessageTopic/* "checkoutmessagetopic"*/);
+                await _cartRepository.ClearCart(checkoutHeader.UserId);
             }
             catch (Exception ex)
             {
@@ -141,31 +142,7 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
             }
             return _response;
         }
-        //[HttpPost]
-        //[Route("Checkout")]
-        //public async Task<object> Checkout(  CheckoutHeaderDto cardHeaderDto)
-        //{
-
-        //    try
-        //    {
-        //        var cartDto = await _cartReporsitory.GetCartByUserId(cardHeaderDto.UserId);
-        //        if(cartDto == null)
-        //        {
-        //            return BadRequest();
-        //        }
-        //       // cardHeaderDto.CartDetails = cartDto.CartDetails;
-        //        //logic to add message to process order 
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _response.IsSuccess = false;
-        //        _response.ErrorMessage = new List<string>() { ex.ToString() };
-        //    }
-
-        //    return _response;
-        //}
-
+         
 
         [HttpPost("ClearCart")] 
         public async Task<object> ClearCart([FromBody] string userId)

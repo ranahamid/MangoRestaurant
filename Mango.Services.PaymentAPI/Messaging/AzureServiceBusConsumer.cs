@@ -79,6 +79,7 @@ namespace Mango.Services.PaymentAPI.Messaging
             {
                 Status = result,
                 OrderId = paymentRequest.OrderId,
+                Email= paymentRequest.Email,
             };
             //new topic
             

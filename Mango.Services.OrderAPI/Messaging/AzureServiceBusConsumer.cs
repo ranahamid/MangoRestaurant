@@ -122,6 +122,7 @@ namespace Mango.Services.OrderAPI.Messaging
                 MessageCreated = DateTime.UtcNow,
                 OrderId = orderHeader.OrderHeaderId,
                 OrderTotal = orderHeader.OrderTotal,
+                Email= orderHeader.Email,
             };
             try
             {

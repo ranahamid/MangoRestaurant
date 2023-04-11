@@ -19,6 +19,9 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
         private readonly string serviceBusConnectionString;
         private readonly string subscriptionName;
         private readonly string checkoutMessageTopic;
+
+        private readonly string checkoutQueue;
+
         private readonly IConfiguration _configuration;
 
         private readonly ICouponReposity _couponReposity;
@@ -34,6 +37,8 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
             serviceBusConnectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
             subscriptionName = _configuration.GetValue<string>("subscriptionNameCheckout");
             checkoutMessageTopic = _configuration.GetValue<string>("CheckoutMessageTopic");
+
+            checkoutQueue = _configuration.GetValue<string>("checkoutQueue");
         }
         //[Authorize]
         [HttpGet]
@@ -132,7 +137,8 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
                 }
                 checkoutHeader.CartDetails = cartDto.CartDetails;
                 //logic to add message to process order.
-                await _messageBus.PublishMessage(checkoutHeader, checkoutMessageTopic/* "checkoutmessagetopic"*/);
+                //   await _messageBus.PublishMessage(checkoutHeader, checkoutMessageTopic);
+                await _messageBus.PublishMessage(checkoutHeader, checkoutQueue);
                 await _cartRepository.ClearCart(checkoutHeader.UserId);
             }
             catch (Exception ex)

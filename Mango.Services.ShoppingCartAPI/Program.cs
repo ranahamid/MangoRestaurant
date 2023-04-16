@@ -2,6 +2,7 @@ using AutoMapper;
 using Mango.MessageBus;
 using Mango.Services.ShoppingCartAPI.DbContexts;
 using Mango.Services.ShoppingCartAPI.Mapping;
+using Mango.Services.ShoppingCartAPI.RabbitMqSender;
 using Mango.Services.ShoppingCartAPI.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +25,7 @@ builder.Services.AddScoped<ICartReporsitory, CartReporsitory>();
 
 builder.Services.AddScoped<IMessageBus, AzureServiceBusMessageBus>();
 builder.Services.AddScoped<ICouponReposity, CouponReposity>();
-
+builder.Services.AddSingleton<IRabbitMqCartMessageSender, RabbitMqCartMessageSender>();
 #endregion
 
 builder.Services.AddControllers();

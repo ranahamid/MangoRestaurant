@@ -1,5 +1,8 @@
 ﻿using Mango.MessageBus;
+using Mango.Services.ShoppingCartAPI.Migrations;
+using Newtonsoft.Json;
 using RabbitMQ.Client;
+using System.Text;
 
 namespace Mango.Services.ShoppingCartAPI.RabbitMqSender
 {
@@ -26,6 +29,9 @@ namespace Mango.Services.ShoppingCartAPI.RabbitMqSender
             var _connection = factory.CreateConnection();
             using var channel = _connection.CreateModel();
             channel.QueueDeclare(queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
+            var json = JsonConvert.SerializeObject(message);
+            var body = Encoding.UTF8.GetBytes(json);
+            channel.BasicPublish(exchange: "", routingKey: queueName, mandatory: false, basicProperties: null, body: body);
         }
     }
 }

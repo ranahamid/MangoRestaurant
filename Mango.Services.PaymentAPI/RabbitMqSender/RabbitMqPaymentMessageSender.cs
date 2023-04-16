@@ -1,5 +1,5 @@
 ﻿using Mango.MessageBus;
- 
+
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System.Text;
@@ -12,8 +12,14 @@ namespace Mango.Services.PaymentAPI.RabbitMqSender
         private readonly string _password;
         private readonly string _userName;
 
-        private const string ExchangeName = "PublishSubscripePaymentUpdate_Exchange";
+
         private IConnection _connection;
+
+        private const string ExchangeName = "DirectPaymentUpdate_Exchange";
+
+        private const string PaymentOrderUpdateQueueName = "PaymentOrderUpdateQueueName";
+        private const string PaymentEmailUpdateQueueName = "PaymentEmailUpdateQueueName";
+
         public RabbitMqPaymentMessageSender()
         {
             _hostName = "localhost";
@@ -35,17 +41,26 @@ namespace Mango.Services.PaymentAPI.RabbitMqSender
                     //                     autoDelete: false,
                     //                     arguments: null);
 
-                    channel.ExchangeDeclare(exchange: ExchangeName, type: ExchangeType.Fanout, durable: false);
+                    channel.ExchangeDeclare(exchange: ExchangeName, type: ExchangeType.Direct, durable: false);
+
+                    channel.QueueDeclare(PaymentOrderUpdateQueueName, false, false, false, null);
+                    channel.QueueDeclare(PaymentEmailUpdateQueueName, false, false, false, null);
+
+                    channel.QueueBind(PaymentOrderUpdateQueueName, ExchangeName, "PaymentOrder");
+                    channel.QueueBind(PaymentEmailUpdateQueueName, ExchangeName,"PaymentEmail");
 
                     var json = JsonConvert.SerializeObject(message);
                     var body = Encoding.UTF8.GetBytes(json);
 
                     channel.BasicPublish(exchange: ExchangeName,
-                                         routingKey: "",
+                                         routingKey: "PaymentOrder",
                                          basicProperties: null,
                                          body: body);
 
-
+                    channel.BasicPublish(exchange: ExchangeName,
+                                        routingKey: "PaymentEmail",
+                                        basicProperties: null,
+                                        body: body);
                 }
 
             }

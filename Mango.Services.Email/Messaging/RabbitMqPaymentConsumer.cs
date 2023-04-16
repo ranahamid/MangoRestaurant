@@ -21,7 +21,10 @@ namespace Mango.Services.Email.Messaging
         private IMapper _mapper;
         private readonly string orderPaymentProcessTopic;
         private readonly string orderUpdatePaymentProcessTopic;
-        private const string ExchangeName = "PublishSubscripePaymentUpdate_Exchange";
+        private const string ExchangeName = "DirectPaymentUpdate_Exchange";
+
+        private const string PaymentOrderUpdateQueueName = "PaymentOrderUpdateQueueName";
+        private const string PaymentEmailUpdateQueueName = "PaymentEmailUpdateQueueName";
 
         //private readonly IProcessPayment _processPayment;
         //private readonly IRabbitMqPaymentMessageSender _rabbitMqPaymentMessageSender;
@@ -46,15 +49,16 @@ namespace Mango.Services.Email.Messaging
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
 
-            _channel.ExchangeDeclare(exchange: ExchangeName, type: ExchangeType.Fanout, durable: false);
+            _channel.ExchangeDeclare(exchange: ExchangeName, type: ExchangeType.Direct, durable: false);
+
             //_channel.QueueDeclare(queue: orderPaymentProcessTopic,
             //                     durable: false,
             //                     exclusive: false,
             //                     autoDelete: false,
             //                     arguments: null);
 
-            queueName = _channel.QueueDeclare().QueueName;
-            _channel.QueueBind(queueName,exchange: ExchangeName,routingKey:"");
+            _channel.QueueDeclare(PaymentEmailUpdateQueueName, false, false, false, null);
+            _channel.QueueBind(PaymentEmailUpdateQueueName, exchange: ExchangeName, routingKey: "PaymentEmail");
         }
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -70,7 +74,7 @@ namespace Mango.Services.Email.Messaging
                 HandleMessage(paymentResultMessage).GetAwaiter().GetResult();
                 _channel.BasicAck(ea.DeliveryTag, false);
             };
-            _channel.BasicConsume(queue: queueName, autoAck: false, consumer: consumer);
+            _channel.BasicConsume(queue: PaymentEmailUpdateQueueName, autoAck: false, consumer: consumer);
             return Task.CompletedTask;
         }
 

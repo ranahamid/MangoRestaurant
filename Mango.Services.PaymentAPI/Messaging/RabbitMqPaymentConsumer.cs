@@ -84,7 +84,7 @@ namespace Mango.Services.PaymentAPI.Messaging
                 //await args.CompleteMessageAsync(args.Message);
 
                 //RabbitMQ
-                _rabbitMqPaymentMessageSender.SendMessage(updatePaymentResultMessage, orderUpdatePaymentProcessTopic);
+                _rabbitMqPaymentMessageSender.SendMessage(updatePaymentResultMessage);
             }
             catch (Exception ex)
             {

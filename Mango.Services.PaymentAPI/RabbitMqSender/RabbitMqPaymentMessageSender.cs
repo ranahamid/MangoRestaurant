@@ -21,7 +21,7 @@ namespace Mango.Services.PaymentAPI.RabbitMqSender
             _userName = "guest";
         }
 
-        public void SendMessage(BaseMessage message, string queueName)
+        public void SendMessage(BaseMessage message)
         {
             try
             {
@@ -29,11 +29,11 @@ namespace Mango.Services.PaymentAPI.RabbitMqSender
                 {
                     using var channel = _connection.CreateModel();
 
-                    channel.QueueDeclare(queue: queueName,
-                                         durable: false,
-                                         exclusive: false,
-                                         autoDelete: false,
-                                         arguments: null);
+                    //channel.QueueDeclare(queue: queueName,
+                    //                     durable: false,
+                    //                     exclusive: false,
+                    //                     autoDelete: false,
+                    //                     arguments: null);
 
                     channel.ExchangeDeclare(exchange: ExchangeName, type: ExchangeType.Fanout, durable: false);
 
@@ -41,7 +41,7 @@ namespace Mango.Services.PaymentAPI.RabbitMqSender
                     var body = Encoding.UTF8.GetBytes(json);
 
                     channel.BasicPublish(exchange: ExchangeName,
-                                         routingKey: queueName,
+                                         routingKey: "",
                                          basicProperties: null,
                                          body: body);
 

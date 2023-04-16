@@ -25,6 +25,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IEmailRepository, EmailRepository>();
 
+builder.Services.AddHostedService<RabbitMqPaymentConsumer>();
+
 var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
 optionBuilder.UseSqlServer(builder.Configuration.GetConnectionString("EmailContext"));
 builder.Services.AddSingleton(new EmailRepository(optionBuilder.Options, mapper));

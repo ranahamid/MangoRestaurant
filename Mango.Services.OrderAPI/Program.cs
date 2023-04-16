@@ -28,7 +28,10 @@ var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
 optionBuilder.UseSqlServer(builder.Configuration.GetConnectionString("OrderContext"));
 builder.Services.AddSingleton(new OrderRepository(optionBuilder.Options, mapper));
 
-builder.Services.AddHostedService<RabbitMqCheckoutConsumer>();
+builder.Services.AddHostedService<RabbitMqCheckoutConsumer>(); 
+builder.Services.AddHostedService<RabbitMqPaymentConsumer>();
+
+
 
 builder.Services.AddSingleton<IAzureServiceBusConsumer, AzureServiceBusConsumer>();
 

@@ -28,7 +28,8 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
         private readonly ICouponReposity _couponReposity;
 
         private readonly IRabbitMqCartMessageSender _rabbitMqCartMessageSender;
-        public CartAPIController(ICartReporsitory cartReporsitory, IMessageBus messageBus, IConfiguration configuration, ICouponReposity couponReposity, IRabbitMqCartMessageSender rabbitMqCartMessageSender)
+        public CartAPIController(ICartReporsitory cartReporsitory, IMessageBus messageBus, IConfiguration configuration, ICouponReposity couponReposity
+            ,IRabbitMqCartMessageSender rabbitMqCartMessageSender)
         {
             _cartRepository = cartReporsitory;
             _messageBus = messageBus;
@@ -43,7 +44,7 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
 
             checkoutQueue = _configuration.GetValue<string>("checkoutQueue");
 
-            _rabbitMqCartMessageSender = rabbitMqCartMessageSender;
+           _rabbitMqCartMessageSender = rabbitMqCartMessageSender;
         }
         //[Authorize]
         [HttpGet]

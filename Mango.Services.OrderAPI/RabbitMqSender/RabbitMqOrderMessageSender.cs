@@ -1,19 +1,19 @@
 ﻿using Mango.MessageBus;
-using Mango.Services.ShoppingCartAPI.Migrations;
+ 
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System.Text;
 
-namespace Mango.Services.ShoppingCartAPI.RabbitMqSender
+namespace Mango.Services.OrderAPI.RabbitMqSender
 {
-    public class RabbitMqCartMessageSender : IRabbitMqCartMessageSender
+    public class RabbitMqOrderMessageSender : IRabbitMqOrderMessageSender
     {
         private readonly string _hostName;
         private readonly string _password;
         private readonly string _userName;
 
         private IConnection _connection;
-        public RabbitMqCartMessageSender()
+        public RabbitMqOrderMessageSender()
         {
             _hostName = "localhost";
             _password = "guest";

@@ -4,6 +4,7 @@ using Mango.Services.OrderAPI.DbContexts;
 using Mango.Services.OrderAPI.Extensions;
 using Mango.Services.OrderAPI.Mapping;
 using Mango.Services.OrderAPI.Messaging;
+using Mango.Services.OrderAPI.RabbitMqSender;
 using Mango.Services.OrderAPI.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -27,10 +28,12 @@ var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
 optionBuilder.UseSqlServer(builder.Configuration.GetConnectionString("OrderContext"));
 builder.Services.AddSingleton(new OrderRepository(optionBuilder.Options, mapper));
 
+builder.Services.AddHostedService<RabbitMqCheckoutConsumer>();
+
 builder.Services.AddSingleton<IAzureServiceBusConsumer, AzureServiceBusConsumer>();
 
 builder.Services.AddSingleton<IMessageBus, AzureServiceBusMessageBus>();
-
+builder.Services.AddSingleton<IRabbitMqOrderMessageSender, RabbitMqOrderMessageSender>();
 
 builder.Services.AddControllers();
 

@@ -25,7 +25,7 @@ builder.Services.AddScoped<ICartReporsitory, CartReporsitory>();
 
 builder.Services.AddScoped<IMessageBus, AzureServiceBusMessageBus>();
 builder.Services.AddScoped<ICouponReposity, CouponReposity>();
-builder.Services.AddSingleton<IRabbitMqCartMessageSender, RabbitMqCartMessageSender>();
+builder.Services.AddScoped<IRabbitMqCartMessageSender, RabbitMqCartMessageSender>();
 #endregion
 
 builder.Services.AddControllers();
